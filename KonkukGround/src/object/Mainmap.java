@@ -11,8 +11,13 @@ import object.Character;
 
 public class Mainmap extends JPanel {
 	Character ch;
+	private Toolkit tool;
+	private Image img;
+	
 
 	Mainmap() {
+		tool=Toolkit.getDefaultToolkit();
+		img=tool.getImage("images//test.png");
 		ch = new Character();
 		this.setBackground(Color.white);
 		this.setFocusable(true);
@@ -66,7 +71,7 @@ public class Mainmap extends JPanel {
 				g2d.drawRect(x * 40, y * 40, 40, 40);
 			}
 		}
-		g2d.fillOval(ch.getPosX(), ch.getPosY(), 40, 40);
+		g.drawImage(img, ch.getPosX(), ch.getPosY(), 40,40,this);
 	}
 
 	public void paintComponent(Graphics g) {
