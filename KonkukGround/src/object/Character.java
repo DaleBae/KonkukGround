@@ -1,43 +1,44 @@
 package object;
 
+import java.awt.*;
+
 public class Character {
-	private int posX, posY;
+	private Point pt;
 
 	public Character() {
 		// TODO Auto-generated constructor stub
-		this.posX = 0;
-		this.posY = 0;
+		pt=new Point(160,160);
 	}
 
 	public void moveUp() {
-		if (posY > 0 && posY <= 360) {
-			posY -= 40;
+		if (pt.getY() > 0 && pt.getY() <= 360) {
+			pt.y -= 40;
 		}
 	}
 
 	public void moveDown() {
-		if (posY >= 0 && posY < 360) {
-			posY += 40;
+		if (pt.getY() >= 0 && pt.getY() < 360) {
+			pt.y += 40;
 		}
 	}
 
 	public void moveLeft() {
-		if (posX > 0 && posX <= 360) {
-			posX -= 40;
+		if (pt.getX() > 0 && pt.getX() <= 360) {
+			pt.x -= 40;
 		}
 	}
 
 	public void moveRight() {
-		if (posX >= 0 && posX < 360) {
-			posX += 40;
+		if (pt.getX() >= 0 && pt.getX() < 360) {
+			pt.x += 40;
 		}
 	}
 
 	public int getPosX() {
-		return posX;
+		return pt.x;
 	}
 
 	public int getPosY() {
-		return posY;
+		return pt.y;
 	}
 }
