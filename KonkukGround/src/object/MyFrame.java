@@ -19,12 +19,13 @@ public class MyFrame extends JFrame{
 		this.setBackground(Color.black);
 		Container contentpane = this.getContentPane();
 		panel = new Mainmap();
-
+		
 		contentpane.add(panel);
 
 		
 		this.setVisible(true);
 	}
+
 
 	
 }
