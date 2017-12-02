@@ -34,69 +34,6 @@ public class Mainmap extends JPanel {
 		this.addKeyListener(new MyKeyAdapter());
 	}
 
-	// Text 초기화
-	public void txt_init() {
-		txt = new JLabel();
-		Font font = new Font("Fixedsys", Font.BOLD, 20);
-		txt.setForeground(Color.white);
-		txt.setFont(font);
-		txt.setSize(419, 90);
-		txt.setLocation(new Point(0, 398));
-	}
-
-	public void txt_change() {
-
-		if (ch.getlandornot()) {
-			String str = "<html>[일감호]<br/>건국대학교의 상징물인 호수<br/>※ 연인들의 산책 코스로 적합 ※</html>";
-			txt.setText(str);
-		} else {
-			txt.setText("Normal");
-		}
-	}
-
-	// Map 초기화
-	public void Map_init() {
-		xCount = 0;
-		yCount = 0;
-		EntireMap = new int[40][60];
-		getMap();
-		PartMap = new int[10][10];
-		for (int i = 0; i < PartMap.length; i++) {
-			for (int j = 0; j < PartMap[i].length; j++) {
-				PartMap[i][j] = EntireMap[i][j];
-			}
-		}
-	}
-
-	// Tile,Ch 이미지 배열 생성 및 이미지 설정
-	public void Image_init() {
-		tool = Toolkit.getDefaultToolkit();
-		Tileimg = new Image[14];
-		Tileimg[0] = tool.getImage("images/풀0.png");
-		Tileimg[1] = tool.getImage("images/울타리1.png");
-		Tileimg[2] = tool.getImage("images/울타리2.png");
-		Tileimg[3] = tool.getImage("images/울타리3.png");
-		Tileimg[4] = tool.getImage("images/울타리4.png");
-		Tileimg[5] = tool.getImage("images/울타리5.png");
-		Tileimg[6] = tool.getImage("images/울타리6.png");
-		Tileimg[7] = tool.getImage("images/길7.png");
-		Tileimg[8] = tool.getImage("images/건물몸8.png");
-		Tileimg[9] = tool.getImage("images/지붕9.png");
-		Tileimg[10] = tool.getImage("images/운동장10.png");
-		Tileimg[11] = tool.getImage("images/일감호11.png");
-		Tileimg[12] = tool.getImage("images/문12.png");
-		Tileimg[13] = tool.getImage("images/공백13.png");
-		chimg = new Image[8];
-		chimg[0] = tool.getImage("images//chfront.png");
-		chimg[1] = tool.getImage("images//chback.png");
-		chimg[2] = tool.getImage("images//chleft.png");
-		chimg[3] = tool.getImage("images//chright.png");
-		chimg[4] = tool.getImage("images//duck_front.png");
-		chimg[5] = tool.getImage("images//duck_back.png");
-		chimg[6] = tool.getImage("images//duck_left.png");
-		chimg[7] = tool.getImage("images//duck_right.png");
-	}
-
 	// Tile 배열 값에 따른 배치
 	public void doDrawing(Graphics g) {
 		// 기본 맵 생성
@@ -147,6 +84,77 @@ public class Mainmap extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		doDrawing(g);
+	}
+
+	// Map 초기화
+	public void Map_init() {
+		xCount = 0;
+		yCount = 0;
+		EntireMap = new int[40][60];
+		getMap();
+		PartMap = new int[10][10];
+		for (int i = 0; i < PartMap.length; i++) {
+			for (int j = 0; j < PartMap[i].length; j++) {
+				PartMap[i][j] = EntireMap[i][j];
+			}
+		}
+	}
+
+	// Tile,Ch 이미지 배열 생성 및 이미지 설정
+	public void Image_init() {
+		tool = Toolkit.getDefaultToolkit();
+		Tileimg = new Image[14];
+		Tileimg[0] = tool.getImage("images/풀0.png");
+		Tileimg[1] = tool.getImage("images/울타리1.png");
+		Tileimg[2] = tool.getImage("images/울타리2.png");
+		Tileimg[3] = tool.getImage("images/울타리3.png");
+		Tileimg[4] = tool.getImage("images/울타리4.png");
+		Tileimg[5] = tool.getImage("images/울타리5.png");
+		Tileimg[6] = tool.getImage("images/울타리6.png");
+		Tileimg[7] = tool.getImage("images/길7.png");
+		Tileimg[8] = tool.getImage("images/건물몸8.png");
+		Tileimg[9] = tool.getImage("images/지붕9.png");
+		Tileimg[10] = tool.getImage("images/운동장10.png");
+		Tileimg[11] = tool.getImage("images/일감호11.png");
+		Tileimg[12] = tool.getImage("images/문12.png");
+		Tileimg[13] = tool.getImage("images/공백13.png");
+		chimg = new Image[8];
+		chimg[0] = tool.getImage("images//chfront.png");
+		chimg[1] = tool.getImage("images//chback.png");
+		chimg[2] = tool.getImage("images//chleft.png");
+		chimg[3] = tool.getImage("images//chright.png");
+		chimg[4] = tool.getImage("images//duck_front.png");
+		chimg[5] = tool.getImage("images//duck_back.png");
+		chimg[6] = tool.getImage("images//duck_left.png");
+		chimg[7] = tool.getImage("images//duck_right.png");
+	}
+
+	// Text 초기화
+	public void txt_init() {
+		txt = new JLabel();
+		Font font = new Font("Fixedsys", Font.BOLD, 20);
+		txt.setForeground(Color.white);
+		txt.setFont(font);
+		txt.setSize(419, 90);
+		txt.setLocation(new Point(0, 398));
+	}
+
+	public void txt_change() {
+		String str;
+		str = "Normal";
+		if (checkTile(12)) {
+			int[] a = new int[2];
+			a = getTile();
+			if (a[0] == 11 && a[1] == 6) {
+				str = "<html>[상허연구관]<br/>반갑습니다<br/>들어가려면 [Enter]</html>";
+			}
+		}
+
+		if (ch.getlandornot()) {
+			str = "<html>[일감호]<br/>건국대학교의 상징물인 호수<br/>※ 연인들의 산책 코스로 적합 ※</html>";
+		}
+		txt.setText(str);
+
 	}
 
 	// 방향키 입력에 따른 KeyAdapter
@@ -228,6 +236,13 @@ public class Mainmap extends JPanel {
 				}
 				ch.setdir(3);
 				break;
+
+			case KeyEvent.VK_ENTER:
+				if (checkTile(12)) {
+					JOptionPane.showMessageDialog(null, "기본 알림창입니다.");
+				}
+				break;
+
 			}
 			if (checkTile(11)) {
 				ch.setlandornot(true);
@@ -276,6 +291,7 @@ public class Mainmap extends JPanel {
 		} else {
 			return false;
 		}
+
 	}
 
 	public boolean downcheckTile(int n) {
@@ -300,5 +316,12 @@ public class Mainmap extends JPanel {
 		} else {
 			return false;
 		}
+	}
+
+	public int[] getTile() {
+		int[] a = new int[2];
+		a[0] = yCount + (ch.getPosY() / 40);
+		a[1] = xCount + (ch.getPosX() / 40);
+		return a;
 	}
 }
