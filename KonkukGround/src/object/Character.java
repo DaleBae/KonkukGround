@@ -9,7 +9,7 @@ public class Character {
 
 	public Character() {
 		// TODO Auto-generated constructor stub
-		pt = new Point(160, 160);
+		pt = new Point(320, 40);
 		dir = 0;
 		LandorNot = false;
 	}
@@ -17,25 +17,25 @@ public class Character {
 	////////////////////// Move ÇÔ¼ö //////////////////////
 
 	public void moveUp() {
-		if (pt.getY() > 0 && pt.getY() <= 360) {
+		if (pt.getY() > 0 && pt.getY() <= 560) {
 			pt.y -= 40;
 		}
 	}
 
 	public void moveDown() {
-		if (pt.getY() >= 0 && pt.getY() < 360) {
+		if (pt.getY() >= 0 && pt.getY() < 560) {
 			pt.y += 40;
 		}
 	}
 
 	public void moveLeft() {
-		if (pt.getX() > 0 && pt.getX() <= 360) {
+		if (pt.getX() > 0 && pt.getX() <= 760) {
 			pt.x -= 40;
 		}
 	}
 
 	public void moveRight() {
-		if (pt.getX() >= 0 && pt.getX() < 360) {
+		if (pt.getX() >= 0 && pt.getX() < 760) {
 			pt.x += 40;
 		}
 	}

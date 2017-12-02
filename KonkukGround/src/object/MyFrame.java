@@ -13,8 +13,10 @@ public class MyFrame extends JFrame{
 	
 	
 	public MyFrame() {
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setLocation((dim.width/2)-409, (dim.height/2)-369);
 		this.setTitle("KonkukGround");
-		this.setSize(419, 538);
+		this.setSize(819, 648);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.black);
 		Container contentpane = this.getContentPane();
