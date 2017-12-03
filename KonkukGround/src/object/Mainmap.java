@@ -3,6 +3,7 @@ package object;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -11,7 +12,7 @@ import javax.swing.*;
 
 import object.Character;
 
-public class Mainmap extends JPanel {
+public class Mainmap extends JPanel implements KeyListener {
 	private Character ch;
 	private Toolkit tool;
 	private Image[] Tileimg;
@@ -32,7 +33,7 @@ public class Mainmap extends JPanel {
 		this.ch = ch;
 		this.setLayout(null);
 		this.setFocusable(true);
-		this.addKeyListener(new MyKeyAdapter());
+//		this.addKeyListener(new MyKeyAdapter());
 	}
 
 	// Tile 배열 값에 따른 배치
@@ -190,105 +191,6 @@ public class Mainmap extends JPanel {
 		}
 	}
 	
-	
-	// 방향키 입력에 따른 KeyAdapter
-	public class MyKeyAdapter extends KeyAdapter {
-		@Override
-		public void keyPressed(KeyEvent e) {
-			// TODO Auto-generated method stub
-			int keyCode = e.getKeyCode();
-			switch (keyCode) {
-			case KeyEvent.VK_UP:
-				if (!upcheckTile(-1) && !upcheckTile(1) && !upcheckTile(2) && !upcheckTile(3) && !upcheckTile(4)
-						&& !upcheckTile(5) && !upcheckTile(6) && !upcheckTile(8) && !upcheckTile(9)) {
-					if (yCount > 0 && ch.getPosY() == 240) {
-						yCount--;
-						for (int i = 0; i < PartMap.length; i++) {
-							for (int j = 0; j < PartMap[i].length; j++) {
-								PartMap[i][j] = EntireMap[i + yCount][j + xCount];
-							}
-						}
-					} else {
-						ch.moveUp();
-					}
-				} else {
-				}
-				
-				ch.setdir(1);
-
-				break;
-			case KeyEvent.VK_DOWN:
-				if (!downcheckTile(-1) && !downcheckTile(1) && !downcheckTile(2) && !downcheckTile(3)
-						&& !downcheckTile(4) && !downcheckTile(5) && !downcheckTile(6) && !downcheckTile(8)
-						&& !downcheckTile(9)) {
-					if (yCount < 25 && ch.getPosY() == 240) {
-						yCount++;
-						for (int i = 0; i < PartMap.length; i++) {
-							for (int j = 0; j < PartMap[i].length; j++) {
-								PartMap[i][j] = EntireMap[i + yCount][j + xCount];
-							}
-						}
-					} else {
-						ch.moveDown();
-					}
-				} else {
-				}
-				ch.setdir(0);
-				break;
-			case KeyEvent.VK_LEFT:
-				if (!leftcheckTile(-1) && !leftcheckTile(1) && !leftcheckTile(2) && !leftcheckTile(3)
-						&& !leftcheckTile(4) && !leftcheckTile(5) && !leftcheckTile(6) && !leftcheckTile(8)
-						&& !leftcheckTile(9)) {
-					if (xCount > 0 && ch.getPosX() == 320) {
-						xCount--;
-						for (int i = 0; i < PartMap.length; i++) {
-							for (int j = 0; j < PartMap[i].length; j++) {
-								PartMap[i][j] = EntireMap[i + yCount][j + xCount];
-							}
-						}
-					} else {
-						ch.moveLeft();
-					}
-				} else {
-				}
-				ch.setdir(2);
-				break;
-			case KeyEvent.VK_RIGHT:
-				if (!rightcheckTile(-1) && !rightcheckTile(1) && !rightcheckTile(2) && !rightcheckTile(3)
-						&& !rightcheckTile(4) && !rightcheckTile(5) && !rightcheckTile(6) && !rightcheckTile(8)
-						&& !rightcheckTile(9)) {
-					if (xCount < 40 && ch.getPosX() == 320) {
-						xCount++;
-						for (int i = 0; i < PartMap.length; i++) {
-							for (int j = 0; j < PartMap[i].length; j++) {
-								PartMap[i][j] = EntireMap[i + yCount][j + xCount];
-							}
-						}
-					} else {
-						ch.moveRight();
-					}
-				} else {
-				}
-				ch.setdir(3);
-				break;
-
-			case KeyEvent.VK_ENTER:
-				if (checkTile(12)) {
-					JOptionPane.showMessageDialog(null, "기본 알림창입니다.");
-				}
-				break;
-
-			}
-			if (checkTile(11)) {
-				ch.setlandornot(true);
-			} else {
-				ch.setlandornot(false);
-			}
-			txt_change(e);
-			repaint();
-		}
-	}
-
 	public void getMap() {
 		int[][] Maptmp = new int[40][60];
 		int i = 0;
@@ -358,5 +260,116 @@ public class Mainmap extends JPanel {
 		a[0] = yCount + (ch.getPosY() / 40);
 		a[1] = xCount + (ch.getPosX() / 40);
 		return a;
+	}
+
+	
+	
+	
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		int keyCode = e.getKeyCode();
+		switch (keyCode) {
+		case KeyEvent.VK_UP:
+			if (!upcheckTile(-1) && !upcheckTile(1) && !upcheckTile(2) && !upcheckTile(3) && !upcheckTile(4)
+					&& !upcheckTile(5) && !upcheckTile(6) && !upcheckTile(8) && !upcheckTile(9)) {
+				if (yCount > 0 && ch.getPosY() == 240) {
+					yCount--;
+					for (int i = 0; i < PartMap.length; i++) {
+						for (int j = 0; j < PartMap[i].length; j++) {
+							PartMap[i][j] = EntireMap[i + yCount][j + xCount];
+						}
+					}
+				} else {
+					ch.moveUp();
+				}
+			} else {
+			}
+			
+			ch.setdir(1);
+
+			break;
+		case KeyEvent.VK_DOWN:
+			if (!downcheckTile(-1) && !downcheckTile(1) && !downcheckTile(2) && !downcheckTile(3)
+					&& !downcheckTile(4) && !downcheckTile(5) && !downcheckTile(6) && !downcheckTile(8)
+					&& !downcheckTile(9)) {
+				if (yCount < 25 && ch.getPosY() == 240) {
+					yCount++;
+					for (int i = 0; i < PartMap.length; i++) {
+						for (int j = 0; j < PartMap[i].length; j++) {
+							PartMap[i][j] = EntireMap[i + yCount][j + xCount];
+						}
+					}
+				} else {
+					ch.moveDown();
+				}
+			} else {
+			}
+			ch.setdir(0);
+			break;
+		case KeyEvent.VK_LEFT:
+			if (!leftcheckTile(-1) && !leftcheckTile(1) && !leftcheckTile(2) && !leftcheckTile(3)
+					&& !leftcheckTile(4) && !leftcheckTile(5) && !leftcheckTile(6) && !leftcheckTile(8)
+					&& !leftcheckTile(9)) {
+				if (xCount > 0 && ch.getPosX() == 320) {
+					xCount--;
+					for (int i = 0; i < PartMap.length; i++) {
+						for (int j = 0; j < PartMap[i].length; j++) {
+							PartMap[i][j] = EntireMap[i + yCount][j + xCount];
+						}
+					}
+				} else {
+					ch.moveLeft();
+				}
+			} else {
+			}
+			ch.setdir(2);
+			break;
+		case KeyEvent.VK_RIGHT:
+			if (!rightcheckTile(-1) && !rightcheckTile(1) && !rightcheckTile(2) && !rightcheckTile(3)
+					&& !rightcheckTile(4) && !rightcheckTile(5) && !rightcheckTile(6) && !rightcheckTile(8)
+					&& !rightcheckTile(9)) {
+				if (xCount < 40 && ch.getPosX() == 320) {
+					xCount++;
+					for (int i = 0; i < PartMap.length; i++) {
+						for (int j = 0; j < PartMap[i].length; j++) {
+							PartMap[i][j] = EntireMap[i + yCount][j + xCount];
+						}
+					}
+				} else {
+					ch.moveRight();
+				}
+			} else {
+			}
+			ch.setdir(3);
+			break;
+
+		case KeyEvent.VK_ENTER:
+			if (checkTile(12)) {
+				JOptionPane.showMessageDialog(null, "기본 알림창입니다.");
+			}
+			break;
+
+		}
+		if (checkTile(11)) {
+			ch.setlandornot(true);
+		} else {
+			ch.setlandornot(false);
+		}
+		txt_change(e);
+		repaint();
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
