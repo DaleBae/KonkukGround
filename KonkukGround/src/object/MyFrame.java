@@ -10,9 +10,11 @@ import object.Character;
 
 public class MyFrame extends JFrame{
 	Mainmap panel;
+	Character ch;
 	
 	
 	public MyFrame() {
+		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation((dim.width/2)-409, (dim.height/2)-369);
 		this.setTitle("KonkukGround");
@@ -20,7 +22,10 @@ public class MyFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.black);
 		Container contentpane = this.getContentPane();
-		panel = new Mainmap();
+		
+	
+		ch=new Character();
+		panel = new Mainmap(ch);
 		
 		contentpane.add(panel);
 

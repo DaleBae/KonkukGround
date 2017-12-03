@@ -23,13 +23,13 @@ public class Mainmap extends JPanel {
 	private int result; // 옵션창의 결과 값을 받아오기
 	private boolean flag; //물에 처음 들어온 것인지 확인하는 변수
 	
-	Mainmap() {
+	Mainmap(Character ch) {
 		this.setBackground(Color.black);
 		Map_init();
 		Image_init();
 		xCount=11;
 		flag=true;
-		ch = new Character();
+		this.ch = ch;
 		this.setLayout(null);
 		this.setFocusable(true);
 		this.addKeyListener(new MyKeyAdapter());
