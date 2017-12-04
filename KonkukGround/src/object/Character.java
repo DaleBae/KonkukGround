@@ -9,6 +9,8 @@ public class Character {
 
 	private int hp;
 	private int full;
+	
+	private int clear[];
 
 	
 	public Character() {
@@ -17,6 +19,20 @@ public class Character {
 		dir = 0;
 		LandorNot = false;
 		hp=200;
+		clear = new int[10];
+		
+		for(int i=0; i<clear.length ;i++){
+			clear[i]=0;
+		}
+	}
+	
+	
+	public void setClear(int index){
+		clear[index] = 1;
+	}
+	
+	public int getClear(int index){
+		return clear[index];
 	}
 
 	public int getHP() {

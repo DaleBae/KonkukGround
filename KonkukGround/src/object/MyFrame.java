@@ -70,30 +70,45 @@ public class MyFrame extends JFrame{
 							
 						case 5:
 							
-							museum = new MuseumGame("박물관 게임",ch,new MuseumGame.gameEndListener() {
-								
-								@Override
-								public void gameEnd() {
-									
-									museum.setVisible(false);
-									
-								
-									MyFrame.this.removeMouseListener(museum);
-									contentpane.remove(museum);
-									panel.setVisible(true);
-									panel.requestFocus();
-									MyFrame.this.requestFocusInWindow(true);
 							
+							if(ch.getClear(5)==0){
+								museum = new MuseumGame("박물관 게임",ch,new MuseumGame.gameEndListener() {
 									
-		
+									@Override
+									public void gameEnd(boolean isClear) {
+										
+										
+										if(isClear){
+											ch.setClear(5);
+										}
+								
+										museum.setVisible(false);
+										
+										MyFrame.this.removeMouseListener(museum);
+										contentpane.remove(museum);
+										panel.setVisible(true);
+										panel.requestFocus();
+										MyFrame.this.requestFocusInWindow(true);
+											
+										
+			
+										
+									}
+								});
+								
+								panel.setVisible(false);
+								contentpane.add(museum);
+								MyFrame.this.addMouseListener(museum);
+								museum.setVisible(true);
+							}else{
+								
+								JOptionPane.showMessageDialog(null, "<html>이미 클리어한 건물입니다.</html>");
+								panel.requestFocus();
+								MyFrame.this.requestFocusInWindow(true);
 									
-								}
-							});
+								
+							}
 							
-							panel.setVisible(false);
-							contentpane.add(museum);
-							MyFrame.this.addMouseListener(museum);
-							museum.setVisible(true);
 							
 							
 							break;		

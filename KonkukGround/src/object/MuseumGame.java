@@ -36,7 +36,7 @@ public class MuseumGame extends Game implements MouseListener {
 	JButton btn_o;
 	JButton btn_x;
 
-	int score = 0;
+	int score = 9;
 	int quizNum=9;
 	
 	boolean isShowRight;
@@ -134,7 +134,7 @@ public class MuseumGame extends Game implements MouseListener {
 			public void run() {
 				// TODO Auto-generated method stub
 				
-				listener.gameEnd();// 게임끝
+				listener.gameEnd(isShowClear);// 게임끝
 				
 				timer.cancel();
 				
@@ -150,7 +150,7 @@ public class MuseumGame extends Game implements MouseListener {
 	
 	
 	interface gameEndListener{
-		void gameEnd();
+		void gameEnd(boolean isClear);
 	}
 	
 
