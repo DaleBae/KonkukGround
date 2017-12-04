@@ -93,5 +93,10 @@ public class Character {
 	public void setdir(int a) {
 		dir = a;
 	}
-
+	public void setPosX(int a) {
+		pt.x=a;
+	}
+	public void setPosY(int a) {
+		pt.y=a;
+	}
 }
