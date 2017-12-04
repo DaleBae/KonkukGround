@@ -36,8 +36,8 @@ public class MuseumGame extends Game implements MouseListener {
 	JButton btn_o;
 	JButton btn_x;
 
-	int score = 9;
-	int quizNum=9;
+	int score = 0;
+	int quizNum=0;
 	
 	boolean isShowRight;
 	boolean isShowWrong;
@@ -73,7 +73,6 @@ public class MuseumGame extends Game implements MouseListener {
 
 		this.add(btn_o);
 		this.add(btn_x);
-
 	}
 
 	@Override
@@ -157,7 +156,6 @@ public class MuseumGame extends Game implements MouseListener {
 	private void init() {
 
 		try {
-
 			img_msg = ImageIO.read(new File("images/¸»Ç³¼±.png"));
 			img_museum = ImageIO.read(new File("images/museum.png"));
 			img_wrong = ImageIO.read(new File("images/¿À´ä.png"));

@@ -249,7 +249,6 @@ public class Mainmap extends JPanel implements KeyListener {
 		}
 		if (result == JOptionPane.YES_OPTION) {
 			if (doornum > 0) {
-				System.out.println(doornum);
 				listener.startGame(doornum);
 			}
 		} else {
