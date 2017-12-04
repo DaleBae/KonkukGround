@@ -6,16 +6,24 @@ public class Character {
 	private Point pt;
 	private int dir; // 0 아래 1 위 2 왼쪽 3 오른쪽
 	private boolean LandorNot;
-
+	private int hp;
+	private int full;
+	
 	public Character() {
 		// TODO Auto-generated constructor stub
 		pt = new Point(320, 40);
 		dir = 0;
 		LandorNot = false;
+		hp=200;
 	}
 
+	public int getHP() {
+		return hp;
+	}
+	public void setHP(int _hp) {
+		this.hp=_hp;
+	}
 	////////////////////// Move 함수 //////////////////////
-
 	public void moveUp() {
 		if (pt.getY() > 0 && pt.getY() <= 560) {
 			pt.y -= 40;
