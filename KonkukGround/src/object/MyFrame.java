@@ -15,6 +15,9 @@ public class MyFrame extends JFrame{
 	
 	GameMessage message;
 	
+	//게임 객체
+	MuseumGame museum;
+	
 	
 	public MyFrame() {
 		
@@ -28,33 +31,39 @@ public class MyFrame extends JFrame{
 		Container contentpane = this.getContentPane();
 		
 		
-		
-		//인트로 부분 
-		message = new GameMessage(819,648,introMessage(),new GameMessage.GameMessageListener() {
-			
-			@Override
-			public void endMessage() {
-				// TODO Auto-generated method stub
-				
-				//본 게임 
-				MyFrame.this.removeKeyListener(message);
-				contentpane.remove(message);
-				
-				
-				ch=new Character(); //캐릭터 생성
-				
-				//메인 맵 생성 
-				panel = new Mainmap(ch);
-				MyFrame.this.addKeyListener(panel);
-				contentpane.add(panel);
-				MyFrame.this.setVisible(true);
-				
-			}
-		});
-		
-		this.addKeyListener(message);	
-		contentpane.add(message);
+		ch = new Character();
+		museum = new MuseumGame("박물관 게임",ch);
+		contentpane.add(museum);
 		this.setVisible(true);
+		
+		
+		
+//		//인트로 부분 
+//		message = new GameMessage(819,648,introMessage(),new GameMessage.GameMessageListener() {
+//			
+//			@Override
+//			public void endMessage() {
+//				// TODO Auto-generated method stub
+//				
+//				//본 게임 
+//				MyFrame.this.removeKeyListener(message);
+//				contentpane.remove(message);
+//				
+//				
+//				ch=new Character(); //캐릭터 생성
+//				
+//				//메인 맵 생성 
+//				panel = new Mainmap(ch);
+//				MyFrame.this.addKeyListener(panel);
+//				contentpane.add(panel);
+//				MyFrame.this.setVisible(true);
+//				
+//			}
+//		});
+//		
+//		this.addKeyListener(message);	
+//		contentpane.add(message);
+//		this.setVisible(true);
 		
 	}
 	

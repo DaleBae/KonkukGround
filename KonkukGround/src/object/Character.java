@@ -7,6 +7,10 @@ public class Character {
 	private int dir; // 0 아래 1 위 2 왼쪽 3 오른쪽
 	private boolean LandorNot;
 
+	
+	
+	
+	
 	public Character() {
 		// TODO Auto-generated constructor stub
 		pt = new Point(320, 40);
