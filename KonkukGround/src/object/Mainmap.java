@@ -237,6 +237,7 @@ public class Mainmap extends JPanel implements KeyListener {
 				result = JOptionPane.showConfirmDialog(null, "<html>[쿨하우스]<br/>반갑습니다<br/>들어가려면 \"예[Y]\"</html>", null,
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				doornum = 12;
+
 			}
 
 		}
@@ -443,6 +444,22 @@ public class Mainmap extends JPanel implements KeyListener {
 		ch.setHP(temp-1);
 		if(temp/40==2&&temp%40==20) {
 			JOptionPane.showMessageDialog(null, "<html>체력이 50%입니다.<br/>학생회관에서 식사를 하거나<br/>기숙사에서 휴식을 취하세요 !</html>");
+		}
+		else if(temp/40==1&&temp%40==10) {
+			JOptionPane.showMessageDialog(null, "<html>체력이 25%입니다.<br/>학생회관에서 식사를 하거나<br/>기숙사에서 휴식을 취하세요 !</html>");
+		}
+		else if(temp/40==0&&temp%40==0) {
+			JOptionPane.showMessageDialog(null, "<html>체력이 모두 소진되었습니다.<br/>기숙사로 이동합니다.</html>");
+			xCount=39;
+			yCount=25;
+			ch.setPosX(320);
+			ch.setPosY(440);
+			for (int i = 0; i < PartMap.length; i++) {
+				for (int j = 0; j < PartMap[i].length; j++) {
+					PartMap[i][j] = EntireMap[i + yCount][j + xCount];
+				}
+			}
+			ch.setHP(200);
 		}
 		repaint();
 
