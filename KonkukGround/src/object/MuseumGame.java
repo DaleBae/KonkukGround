@@ -49,10 +49,14 @@ public class MuseumGame extends Game {
 	String answer[]; // 정답
 	
 	Timer timer;
+	
+	gameEndListener listener;
 
-	MuseumGame(String subject, Character ch) {
+	MuseumGame(String subject, Character ch , gameEndListener listener) {
 		super(subject, ch);
 
+		this.listener = listener;
+		
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		init();
@@ -236,20 +240,41 @@ public class MuseumGame extends Game {
 			}
 				
 			if(isShowClear){
-				g.drawImage(img_success, 250, 150,null);
+				g.drawImage(img_success, 200, 150,null);
 			}
-			g.drawImage(img_success, 200, 150,null);
+		
 		
 
 	}
 	
 	private void gameOver(){
 		if(score>4){
-			
+			isShowClear=true;
+		}else{
+			isShowFail=true;
 		}
+		
+		MuseumGame.this.repaint();
+		
+		TimerTask tt = new TimerTask(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				listener.gameEnd();// 게임끝
+			}
+			
+		};
+		
+		timer = new Timer();
+		timer.schedule(tt, 1500,1000);
+		
 	}
 	
 	
+	interface gameEndListener{
+		void gameEnd();
+	}
 	
 
 	private void init() {
