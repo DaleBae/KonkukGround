@@ -155,7 +155,6 @@ public class Mainmap extends JPanel implements KeyListener {
 					,null,JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);	
 		}
 		if(result==JOptionPane.YES_OPTION) {
-			
 		}
 		else {
 			key_reject(e_temp);
@@ -343,12 +342,6 @@ public class Mainmap extends JPanel implements KeyListener {
 			} else {
 			}
 			ch.setdir(3);
-			break;
-
-		case KeyEvent.VK_ENTER:
-			if (checkTile(12)) {
-				JOptionPane.showMessageDialog(null, "기본 알림창입니다.");
-			}
 			break;
 
 		}

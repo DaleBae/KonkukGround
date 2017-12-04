@@ -37,7 +37,9 @@ public class MyFrame extends JFrame{
 				// TODO Auto-generated method stub
 				
 				//본 게임 
+				MyFrame.this.removeKeyListener(message);
 				contentpane.remove(message);
+				
 				
 				ch=new Character(); //캐릭터 생성
 				
@@ -53,12 +55,6 @@ public class MyFrame extends JFrame{
 		this.addKeyListener(message);	
 		contentpane.add(message);
 		this.setVisible(true);
-		
-
-		
-
-
-		
 		
 	}
 	
