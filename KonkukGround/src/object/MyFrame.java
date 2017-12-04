@@ -65,34 +65,46 @@ public class MyFrame extends JFrame {
 
 						case 5:
 
-							if (ch.getClear(5) == 0) {
+							if (ch.getClear(5) == 0) { //클리어 여부 확인
 
+								
+								//게임 대화 상자 생성 (1)
 								message_ingame = new GameMessage(819, 648, museumMessage(),
 										new GameMessage.GameMessageListener() {
 
 											@Override
 											public void endMessage() {
+												//게임 대화상자 끝나고 게임실행하는 부분
 												
 												
-												// 본 게임
+												// 메세지 화면 false로 해주고 리스너 제거(2)
 												message_ingame.setVisible(false);
 												MyFrame.this.removeKeyListener(message_ingame);
 												contentpane.remove(message_ingame);
 												
 												
+												//게임 클래스 생성(2)
 												museum = new MuseumGame("박물관 게임", ch, new MuseumGame.gameEndListener() {
 
 													@Override
 													public void gameEnd(boolean isClear) {
 
+														//게임 끝나고 실행 이벤트(3)
+														
+													
 														if (isClear) {
+															//클리어 했을때 캐릭터에 클리어 정보 저장
 															ch.setClear(5);
 														}
-
+																
+														
+														
+														//게임 화면 false 주고 리스너 제거
 														museum.setVisible(false);
-
 														MyFrame.this.removeMouseListener(museum);
 														contentpane.remove(museum);
+														
+														//다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
 														MyFrame.this.addKeyListener(panel);
 														panel.setVisible(true);
 														panel.requestFocus();
@@ -101,6 +113,8 @@ public class MyFrame extends JFrame {
 													}
 												});
 
+												
+												//메인 맵 화면 false 해주고 게임화면 띄워주는 부분(대화상자에 리스너 추가) (2)
 												panel.setVisible(false);
 												contentpane.add(museum);
 												MyFrame.this.addMouseListener(museum);
@@ -109,7 +123,9 @@ public class MyFrame extends JFrame {
 												
 											}
 										});
-										
+									
+								
+								//메인맵 화면 false해주고 대화 상자 띄워주는 부분 (1)
 								panel.setVisible(false);
 								MyFrame.this.removeKeyListener(panel);
 								MyFrame.this.addKeyListener(message_ingame);
@@ -118,7 +134,8 @@ public class MyFrame extends JFrame {
 								
 								
 							} else {
-
+										
+								//클리어 시 보여줄 화면
 								JOptionPane.showMessageDialog(null, "<html>이미 클리어한 건물입니다.</html>");
 								panel.requestFocus();
 								MyFrame.this.requestFocusInWindow(true);
