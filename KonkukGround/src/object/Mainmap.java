@@ -25,8 +25,9 @@ public class Mainmap extends JPanel implements KeyListener {
 	private int result; // 옵션창의 결과 값을 받아오기
 	private boolean flag; // 물에 처음 들어온 것인지 확인하는 변수
 	
+	private mainMapListener listener;
 	
-	Mainmap(Character ch) {
+	Mainmap(Character ch, mainMapListener listener) {
 		this.setBackground(Color.black);
 		Map_init();
 		Image_init();
@@ -35,6 +36,7 @@ public class Mainmap extends JPanel implements KeyListener {
 		this.ch = ch;
 		this.setLayout(null);
 		this.setFocusable(true);
+		this.listener = listener;
 		// this.addKeyListener(new MyKeyAdapter());
 	}
 
@@ -248,6 +250,7 @@ public class Mainmap extends JPanel implements KeyListener {
 		if (result == JOptionPane.YES_OPTION) {
 			if (doornum > 0) {
 				System.out.println(doornum);
+				listener.startGame(doornum);
 			}
 		} else {
 			key_reject(e_temp);
@@ -255,6 +258,12 @@ public class Mainmap extends JPanel implements KeyListener {
 
 	}
 
+	
+	
+	interface mainMapListener{
+		void startGame(int doorNum);
+	}
+	
 	// txt_change에서 나오는 텍스트의 Yes를 클릭하지 않았을경우 되돌리기
 	public void key_reject(KeyEvent e_temp) {
 		Robot robot;

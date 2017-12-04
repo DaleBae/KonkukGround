@@ -37,7 +37,7 @@ public class MuseumGame extends Game {
 	JButton btn_x;
 
 	int score = 0;
-	int quizNum=0;
+	int quizNum=9;
 	
 	boolean isShowRight;
 	boolean isShowWrong;
@@ -89,23 +89,33 @@ public class MuseumGame extends Game {
 						@Override
 						public void run() {
 							// TODO Auto-generated method stub
+							
 							MuseumGame.this.repaint();
+							
 							isShowWrong=false;
 							isShowRight=false;
 							timer.cancel();
+							
 						}
 						
 					};
 					
-					timer = new Timer();
-					timer.schedule(tt, 1500,1000);
+					if(quizNum==9){
+							MuseumGame.this.repaint();
+							gameOver();
+						
+					}else{
+						timer = new Timer();
+						timer.schedule(tt, 1500,1000);
+					}
+					
 		
-	
-					if(quizNum<10){
+					MuseumGame.this.repaint();
+					if(quizNum<9){
 						quizNum +=1;
 					}
 					
-					MuseumGame.this.repaint();
+					
 					
 					
 			}
@@ -141,7 +151,7 @@ public class MuseumGame extends Game {
 			public void mouseReleased(MouseEvent e) {
 				// TODO Auto-generated method stub
 				
-				
+								
 				if(answer[quizNum].equals("1")){
 					isShowRight=true;
 					score +=1;
@@ -157,20 +167,30 @@ public class MuseumGame extends Game {
 						MuseumGame.this.repaint();
 						isShowWrong=false;
 						isShowRight=false;
+					
 						timer.cancel();
 					}
 					
 				};
 				
+				if(quizNum==9){
+					MuseumGame.this.repaint();
+					gameOver();
+				
+				}else{
 				timer = new Timer();
 				timer.schedule(tt, 1500,1000);
-				
-				if(quizNum<10){
-					quizNum +=1;
 				}
 				
 				
 				MuseumGame.this.repaint();
+				if(quizNum<9){
+					quizNum +=1;
+				}
+				
+				
+				
+				
 				
 			}
 
@@ -261,7 +281,11 @@ public class MuseumGame extends Game {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
+				
 				listener.gameEnd();// °ÔÀÓ³¡
+				timer.cancel();
+				
+				
 			}
 			
 		};

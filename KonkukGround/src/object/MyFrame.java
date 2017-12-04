@@ -31,21 +31,6 @@ public class MyFrame extends JFrame{
 		Container contentpane = this.getContentPane();
 		
 		
-//		ch = new Character();
-//		museum = new MuseumGame("박물관 게임",ch,new MuseumGame.gameEndListener() {
-//			
-//			@Override
-//			public void gameEnd() {
-//				contentpane.remove(museum);
-//				
-//				
-//				
-//			}
-//		});
-//		contentpane.add(museum);
-//		this.setVisible(true);
-		
-		
 		
 		//인트로 부분 
 		message = new GameMessage(819,648,introMessage(),new GameMessage.GameMessageListener() {
@@ -62,7 +47,87 @@ public class MyFrame extends JFrame{
 				ch=new Character(); //캐릭터 생성
 				
 				//메인 맵 생성 
-				panel = new Mainmap(ch);
+				panel = new Mainmap(ch,new Mainmap.mainMapListener() {
+					
+					@Override
+					public void startGame(int doorNum) {
+						
+						
+						switch(doorNum){
+						
+						case 1:
+							
+							break;
+							
+						case 2:
+							
+							break;
+							
+							
+						case 4:
+							
+							break;	
+							
+						case 5:
+							
+							panel.setVisible(false);
+							MyFrame.this.removeKeyListener(panel);
+							museum = new MuseumGame("박물관 게임",ch,new MuseumGame.gameEndListener() {
+								
+								@Override
+								public void gameEnd() {
+									
+									museum.setVisible(false);
+									contentpane.remove(museum);
+						
+									panel.setVisible(true);
+									MyFrame.this.addKeyListener(panel);
+									
+									
+									
+									
+									
+								}
+							});
+							contentpane.add(museum);
+							
+							break;		
+							
+							
+						case 6:
+							
+							break;		
+							
+						case 7:
+							
+							break;	
+							
+						case 8:
+							
+							break;	
+							
+							
+						case 9 :
+							
+							break;	
+							
+						case 10:
+							
+							break;	
+							
+						case 11:
+							
+							break;	
+							
+						case 12:
+							
+							break;			
+							
+						}
+						
+						
+					}
+				});
 				MyFrame.this.addKeyListener(panel);
 				contentpane.add(panel);
 				MyFrame.this.setVisible(true);
