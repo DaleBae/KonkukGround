@@ -15,9 +15,11 @@ public class MyFrame extends JFrame {
 
 	GameMessage message;
 
+	GameMessage message_ingame;
+//	Kulhouse kul;
 	// 게임 객체
 	MuseumGame museum;
-	Kulhouse kul;
+
 
 	public MyFrame() {
 
@@ -65,33 +67,79 @@ public class MyFrame extends JFrame {
 
 						case 5:
 
-							if (ch.getClear(5) == 0) {
-								museum = new MuseumGame("박물관 게임", ch, new MuseumGame.gameEndListener() {
+							if (ch.getClear(5) == 0) { //클리어 여부 확인
 
-									@Override
-									public void gameEnd(boolean isClear) {
-
-										if (isClear) {
-											ch.setClear(5);
-										}
-
-										museum.setVisible(false);
-
-										MyFrame.this.removeMouseListener(museum);
-										contentpane.remove(museum);
-										panel.setVisible(true);
-										panel.requestFocus();
-										MyFrame.this.requestFocusInWindow(true);
-
-									}
-								});
-
+								
+								//메인맵 화면 false해주고 리스너해제 (1)
 								panel.setVisible(false);
-								contentpane.add(museum);
-								MyFrame.this.addMouseListener(museum);
-								museum.setVisible(true);
-							} else {
+								MyFrame.this.removeKeyListener(panel);
+								
+								//게임 대화 상자 생성 (1)
+								message_ingame = new GameMessage(819, 648, museumMessage(),
+										new GameMessage.GameMessageListener() {
 
+											@Override
+											public void endMessage() {
+												//게임 대화상자 끝나고 게임실행하는 부분
+												
+												
+												// 메세지 화면 false로 해주고 리스너 제거(2)
+												message_ingame.setVisible(false);
+												MyFrame.this.removeKeyListener(message_ingame);
+												contentpane.remove(message_ingame);
+												
+												
+												//게임 클래스 생성(2)
+												museum = new MuseumGame("박물관 게임", ch, new MuseumGame.gameEndListener() {
+
+													@Override
+													public void gameEnd(boolean isClear) {
+
+														//게임 끝나고 실행 이벤트(3)
+														
+													
+														if (isClear) {
+															//클리어 했을때 캐릭터에 클리어 정보 저장
+															ch.setClear(5);
+														}
+																
+														
+														
+														//게임 화면 false 주고 리스너 제거
+														museum.setVisible(false);
+														MyFrame.this.removeMouseListener(museum);
+														contentpane.remove(museum);
+														
+														//다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
+														MyFrame.this.addKeyListener(panel);
+														panel.setVisible(true);
+														panel.requestFocus();
+														MyFrame.this.requestFocusInWindow(true);
+
+													}
+												});
+
+												
+												//메인 맵 화면 false 해주고 게임화면 띄워주는 부분(대화상자에 리스너 추가) (2)
+										
+												contentpane.add(museum);
+												MyFrame.this.addMouseListener(museum);
+												museum.setVisible(true);
+												
+												
+											}
+										});
+									
+								
+								//대화상자 추가 및 리스너 추가(1)
+								MyFrame.this.addKeyListener(message_ingame);
+								contentpane.add(message_ingame);
+								message_ingame.setVisible(true);
+								
+								
+							} else {
+										
+								//클리어 시 보여줄 화면
 								JOptionPane.showMessageDialog(null, "<html>이미 클리어한 건물입니다.</html>");
 								panel.requestFocus();
 								MyFrame.this.requestFocusInWindow(true);
@@ -125,30 +173,6 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 12:
-							museum = new MuseumGame("박물관 게임", ch, new MuseumGame.gameEndListener() {
-
-								@Override
-								public void gameEnd(boolean isClear) {
-
-									if (isClear) {
-										ch.setClear(5);
-									}
-
-									museum.setVisible(false);
-
-									MyFrame.this.removeMouseListener(museum);
-									contentpane.remove(museum);
-									panel.setVisible(true);
-									panel.requestFocus();
-									MyFrame.this.requestFocusInWindow(true);
-
-								}
-							});
-
-							panel.setVisible(false);
-							contentpane.add(museum);
-							MyFrame.this.addMouseListener(museum);
-							museum.setVisible(true);
 
 							break;
 
@@ -180,5 +204,18 @@ public class MyFrame extends JFrame {
 
 		return intro;
 	}
+
+
+	private ArrayList<String> museumMessage() {
+		ArrayList<String> muse = new ArrayList();
+		muse.add("어서와! 여기는 상허 기념 박물관이란다. ▼");
+		muse.add("... ▼");
+		muse.add(" ... ▼");
+
+		muse.add("그럼 상허 기념 박물관 퀴즈 게임을 시작하자 ▼");
+
+		return muse;
+	}
+
 
 }

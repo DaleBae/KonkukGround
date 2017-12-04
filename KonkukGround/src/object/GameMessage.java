@@ -31,7 +31,7 @@ public class GameMessage extends JPanel implements KeyListener {
 	GameMessage(int xsize, int ysize,ArrayList<String> msg, GameMessageListener listener){
 		
 		
-		
+		msgCount=0;
 		screenWidth = xsize;
 		screenHeight = ysize;
 		this.msg = msg;
