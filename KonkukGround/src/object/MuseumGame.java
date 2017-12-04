@@ -22,7 +22,7 @@ import java.util.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
-public class MuseumGame extends Game {
+public class MuseumGame extends Game implements MouseListener {
 
 	Image img_msg; //대화창
 	Image img_museum; //박물관 이미지
@@ -67,157 +67,9 @@ public class MuseumGame extends Game {
 		btn_o.setBounds(100, 150, 100, 100);
 		btn_x.setBounds(600, 150, 100, 100);
 
-		btn_o.addMouseListener(new MouseListener() {
+		btn_o.addMouseListener(this);
 
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-				
-					if(answer[quizNum].equals("0")){
-						isShowRight=true;
-						score +=1;
-						
-					}else{
-						isShowWrong=true;
-						
-					}
-					
-					
-					TimerTask tt = new TimerTask(){
-
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							
-							MuseumGame.this.repaint();
-							
-							isShowWrong=false;
-							isShowRight=false;
-							timer.cancel();
-							
-						}
-						
-					};
-					
-					if(quizNum==9){
-							MuseumGame.this.repaint();
-							gameOver();
-						
-					}else{
-						timer = new Timer();
-						timer.schedule(tt, 1500,1000);
-					}
-					
-		
-					MuseumGame.this.repaint();
-					if(quizNum<9){
-						quizNum +=1;
-					}
-					
-					
-					
-					
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-
-		btn_x.addMouseListener(new MouseListener() {
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-				
-								
-				if(answer[quizNum].equals("1")){
-					isShowRight=true;
-					score +=1;
-				}else{
-					isShowWrong=true;
-				}
-				
-				TimerTask tt = new TimerTask(){
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						MuseumGame.this.repaint();
-						isShowWrong=false;
-						isShowRight=false;
-					
-						timer.cancel();
-					}
-					
-				};
-				
-				if(quizNum==9){
-					MuseumGame.this.repaint();
-					gameOver();
-				
-				}else{
-				timer = new Timer();
-				timer.schedule(tt, 1500,1000);
-				}
-				
-				
-				MuseumGame.this.repaint();
-				if(quizNum<9){
-					quizNum +=1;
-				}
-				
-				
-				
-				
-				
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		btn_x.addMouseListener(this);
 
 		this.add(btn_o);
 		this.add(btn_x);
@@ -283,6 +135,7 @@ public class MuseumGame extends Game {
 				// TODO Auto-generated method stub
 				
 				listener.gameEnd();// 게임끝
+				
 				timer.cancel();
 				
 				
@@ -343,5 +196,120 @@ public class MuseumGame extends Game {
 			e.printStackTrace();
 		}
 
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if(btn_o==e.getSource()){
+			if(answer[quizNum].equals("0")){
+				isShowRight=true;
+				score +=1;
+				
+			}else{
+				isShowWrong=true;
+				
+			}
+			
+			
+			TimerTask tt = new TimerTask(){
+
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					
+					MuseumGame.this.repaint();
+					
+					isShowWrong=false;
+					isShowRight=false;
+					timer.cancel();
+					
+				}
+				
+			};
+			
+			if(quizNum==9){
+					MuseumGame.this.repaint();
+					gameOver();
+				
+			}else{
+				timer = new Timer();
+				timer.schedule(tt, 1500,1000);
+			}
+			
+
+			MuseumGame.this.repaint();
+			if(quizNum<9){
+				quizNum +=1;
+			}
+			
+			
+
+		}
+		
+		
+		
+		if(btn_x==e.getSource()){
+			
+		if(answer[quizNum].equals("1")){
+			isShowRight=true;
+			score +=1;
+		}else{
+			isShowWrong=true;
+		}
+		
+		TimerTask tt = new TimerTask(){
+
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
+				MuseumGame.this.repaint();
+				isShowWrong=false;
+				isShowRight=false;
+			
+				timer.cancel();
+			}
+			
+		};
+		
+		if(quizNum==9){
+			MuseumGame.this.repaint();
+			gameOver();
+		
+		}else{
+		timer = new Timer();
+		timer.schedule(tt, 1500,1000);
+		}
+		
+		
+		MuseumGame.this.repaint();
+		if(quizNum<9){
+			quizNum +=1;
+		}
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

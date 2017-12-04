@@ -70,26 +70,31 @@ public class MyFrame extends JFrame{
 							
 						case 5:
 							
-							panel.setVisible(false);
-							MyFrame.this.removeKeyListener(panel);
 							museum = new MuseumGame("박물관 게임",ch,new MuseumGame.gameEndListener() {
 								
 								@Override
 								public void gameEnd() {
 									
 									museum.setVisible(false);
+									
+								
+									MyFrame.this.removeMouseListener(museum);
 									contentpane.remove(museum);
-						
 									panel.setVisible(true);
-									MyFrame.this.addKeyListener(panel);
+									panel.requestFocus();
+									MyFrame.this.requestFocusInWindow(true);
+							
 									
-									
-									
-									
+		
 									
 								}
 							});
+							
+							panel.setVisible(false);
 							contentpane.add(museum);
+							MyFrame.this.addMouseListener(museum);
+							museum.setVisible(true);
+							
 							
 							break;		
 							
