@@ -18,7 +18,7 @@ public class MyFrame extends JFrame {
 	GameMessage message;
 
 	GameMessage message_ingame;
-//	Kulhouse kul;
+	Kulhouse kul;
 	// 게임 객체
 	MuseumGame museum;
 	SoftGame soft;
@@ -79,20 +79,19 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 6:
-//							panel.setVisible(false);
-//							MyFrame.this.removeKeyListener(panel);
-//							
-//							ArtCulture art=new ArtCulture("예술문화대학",ch,new GameEndListener() {
-//
-//								@Override
-//								public void GameEnd() {
-//									// TODO Auto-generated method stub
-//									
-//								}
-//								
-//							});
-//							contentpane.add(art);
-//							art.setVisible(true);
+							panel.setVisible(false);
+							MyFrame.this.removeKeyListener(panel);
+							
+							ArtCulture art=new ArtCulture("예술문화대학",ch,new ArtCulture.gameEndListener() {
+								
+								@Override
+								public void gameEnd(boolean isClear) {
+									// TODO Auto-generated method stub
+									
+								}
+							});
+							contentpane.add(art);
+							art.setVisible(true);
 							
 							break;
 
@@ -117,29 +116,28 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 12:
-//							panel.setVisible(false);
-//							MyFrame.this.removeKeyListener(panel);
-//							kul=new Kulhouse("쿨하우스",ch,new Kulhouse.ExitListener() {
-//								
-//								@Override
-//								public void ExitHere() {
-//									// TODO Auto-generated method stub
-//									// 게임 화면 false 주고 리스너 제거
-//									kul.setVisible(false);
-//									MyFrame.this.removeKeyListener(kul);
-//									contentpane.remove(kul);
-//
-//									// 다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
-//									MyFrame.this.addKeyListener(panel);
-//									panel.setVisible(true);
-//									panel.requestFocus();
-//									MyFrame.this.requestFocusInWindow(true);
-//								}
-//							});
-//							contentpane.add(kul);
-//							MyFrame.this.addKeyListener(kul);
-//							kul.setVisible(true);
-//							break;
+							panel.setVisible(false);
+							MyFrame.this.removeKeyListener(panel);
+							kul=new Kulhouse("쿨하우스",ch,new Kulhouse.gameEndListener() {
+								
+								@Override
+								public void gameEnd(boolean isClear) {
+									// TODO Auto-generated method stub
+									kul.setVisible(false);
+									MyFrame.this.removeKeyListener(kul);
+									contentpane.remove(kul);
+
+									// 다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
+									MyFrame.this.addKeyListener(panel);
+									panel.setVisible(true);
+									panel.requestFocus();
+									MyFrame.this.requestFocusInWindow(true);
+								}
+							});
+							contentpane.add(kul);
+							MyFrame.this.addKeyListener(kul);
+							kul.setVisible(true);
+							break;
 
 							
 						case 99:
@@ -182,9 +180,10 @@ public class MyFrame extends JFrame {
 	private ArrayList<String> museumMessage() {
 		ArrayList<String> muse = new ArrayList();
 		muse.add("어서와! 여기는 상허 기념 박물관이란다. ▼");
-		muse.add("... ▼");
-		muse.add(" ... ▼");
-
+		muse.add("상허 기념 박물관은 고고, 역사, 미술, 민속,▼");
+		muse.add("학교역사자료 등 6천여 점을 소장하고 있는 종합박물관이야  ▼");
+		muse.add("또한 대학인과 지역주민을 대상으로 ‘박물관대학’을 운영하고 있어 ▼");
+		muse.add("건국대학교와 상허 기념 박물관에 관한 퀴즈 게임을 통해 공부해보자 ▼");
 		muse.add("그럼 상허 기념 박물관 퀴즈 게임을 시작하자 ▼");
 
 		return muse;
