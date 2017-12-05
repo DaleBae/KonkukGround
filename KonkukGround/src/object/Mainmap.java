@@ -246,7 +246,6 @@ public class Mainmap extends JPanel implements KeyListener {
 						JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 				doornum = 12;
 			}
-
 		}
 		if (ch.getlandornot() && flag) {
 			result = JOptionPane.showConfirmDialog(null,
@@ -482,6 +481,7 @@ public class Mainmap extends JPanel implements KeyListener {
 			}
 			ch.setHP(200);
 		}
+		listener.startGame(99); //다시 포커스 MyFrame으로 넘기기 (키리스너 작동)
 		repaint();
 
 	}
