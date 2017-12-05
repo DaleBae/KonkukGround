@@ -20,7 +20,8 @@ public class Kulhouse extends Game implements KeyListener {
 
 	Image img;
 	Timer timer;
-	JLabel label;
+	TimerTask tt;
+	
 	boolean sleep_enter;
 
 	public Kulhouse(String subject, Character ch, gameEndListener listener) {
@@ -32,16 +33,6 @@ public class Kulhouse extends Game implements KeyListener {
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		init();
-
-
-		label = new JLabel();
-		label.setFont(new Font("Serif", Font.BOLD, 20));
-		label.setBackground(null);
-		label.setBounds(300, 50, 400, 100);
-		label.setForeground(Color.BLACK);
-		label.setText("스르르 잠이 듭니다..");
-		this.add(label);
-		label.setVisible(false);
 
 		btn_sleep = new JButton();
 		btn_exit = new JButton();
@@ -58,34 +49,8 @@ public class Kulhouse extends Game implements KeyListener {
 		btn_sleep.setBounds(200, 150, 400, 100);
 		btn_exit.setBounds(200, 350, 400, 100);
 
-		this.addKeyListener(this);
-		this.add(btn_sleep);
-		this.add(btn_exit);
-		// btn_x.addMouseListener(this);
-	}
-
-	
-	interface ExitListener {
-		void ExitHere();
-	}
-
-	public void exit() {
-		listener.gameEnd(false);
-	}
-
-	public void init() {
-		sleep_enter = false;
-		try {
-			img = ImageIO.read(new File("images/수면.png"));
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-	public void doDrawing(Graphics g) {
 		timer = new Timer();
-		TimerTask tt = new TimerTask() {
+		tt = new TimerTask() {
 			@Override
 			public void run() {
 				// TODO Auto-generated method stub
@@ -94,18 +59,42 @@ public class Kulhouse extends Game implements KeyListener {
 				timer.cancel();
 			}
 		};
-		if (sleep_enter&&pos) {
-			label.setVisible(true);
-			this.remove(btn_sleep);
-			this.remove(btn_exit);
-			g.drawImage(img, 230, 250, 300, 300, null);
-			timer.schedule(tt, 1500);
-		}
+		
+		this.addKeyListener(this);
+		this.add(btn_sleep);
+		this.add(btn_exit);
+	}
+
+	
+	public void exit() {
+		listener.gameEnd(true);
+	}
+
+	public void init() {
+		sleep_enter = false;
+
+	}
+	public void doDrawing(Graphics g) {
+		
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		doDrawing(g);
+		try {
+			img = ImageIO.read(new File("images/수면.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (sleep_enter&&pos) {
+			g.setFont(new Font("Serif", Font.BOLD, 20));
+			g.drawString("스르르 잠이 듭니다..", 280, 150);
+			this.remove(btn_sleep);
+			this.remove(btn_exit);
+			g.drawImage(img, 230, 250, 300, 300, null);
+			timer.schedule(tt, 1500);
+		}
 	}
 
 	@Override
