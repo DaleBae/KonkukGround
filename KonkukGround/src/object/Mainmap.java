@@ -36,7 +36,6 @@ public class Mainmap extends JPanel implements KeyListener {
 		flag = true;
 		this.ch = ch;
 		this.setLayout(null);
-		this.setFocusable(true);
 		this.listener = listener;
 		// this.addKeyListener(new MyKeyAdapter());
 	}

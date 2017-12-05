@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import object.ArtCulture.GameEndListener;
 import object.Character;
 
 public class MyFrame extends JFrame {
@@ -137,7 +138,21 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 6:
+							panel.setVisible(false);
+							MyFrame.this.removeKeyListener(panel);
+							
+							ArtCulture art=new ArtCulture("예술문화대학",ch,new GameEndListener() {
 
+								@Override
+								public void GameEnd() {
+									// TODO Auto-generated method stub
+									
+								}
+								
+							});
+							contentpane.add(art);
+							art.setVisible(true);
+							
 							break;
 
 						case 7:
