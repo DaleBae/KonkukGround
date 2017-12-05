@@ -8,7 +8,6 @@ public class Character {
 	private boolean LandorNot;
 
 	private int hp;
-	private int full;
 	
 	private int clear[];
 

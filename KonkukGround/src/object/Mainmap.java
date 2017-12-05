@@ -24,6 +24,7 @@ public class Mainmap extends JPanel implements KeyListener {
 	private int yCount;
 	private int result; // 옵션창의 결과 값을 받아오기
 	private boolean flag; // 물에 처음 들어온 것인지 확인하는 변수
+	Robot robot;
 	
 	private mainMapListener listener;
 	
@@ -125,7 +126,7 @@ public class Mainmap extends JPanel implements KeyListener {
 	// Tile,Ch 이미지 배열 생성 및 이미지 설정
 	public void Image_init() {
 		tool = Toolkit.getDefaultToolkit();
-		Tileimg = new Image[45];
+		Tileimg = new Image[51];
 		Tileimg[0] = tool.getImage("images/풀0.png");
 		Tileimg[1] = tool.getImage("images/울타리1.png");
 		Tileimg[2] = tool.getImage("images/울타리2.png");
@@ -171,6 +172,12 @@ public class Mainmap extends JPanel implements KeyListener {
 		Tileimg[42] = tool.getImage("images/축구장42.png");
 		Tileimg[43] = tool.getImage("images/축구장43.png");
 		Tileimg[44] = tool.getImage("images/축구장44.png");
+		Tileimg[45] = tool.getImage("images/섬45.png");
+		Tileimg[46] = tool.getImage("images/섬46.png");
+		Tileimg[47] = tool.getImage("images/섬47.png");
+		Tileimg[48] = tool.getImage("images/섬48.png");
+		Tileimg[49] = tool.getImage("images/섬49.png");
+		Tileimg[50] = tool.getImage("images/섬50.png");
 		chimg = new Image[8];
 		chimg[0] = tool.getImage("images//chfront.png");
 		chimg[1] = tool.getImage("images//chback.png");
@@ -441,7 +448,7 @@ public class Mainmap extends JPanel implements KeyListener {
 			break;
 
 		}
-		if (checkTile(11)) {
+		if (checkTile(11)||checkTile(48)) {
 			ch.setlandornot(true);
 		} else {
 			ch.setlandornot(false);
@@ -471,7 +478,7 @@ public class Mainmap extends JPanel implements KeyListener {
 		repaint();
 
 	}
-
+	
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
