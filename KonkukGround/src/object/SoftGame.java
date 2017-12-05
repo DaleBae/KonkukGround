@@ -128,8 +128,11 @@ public class SoftGame extends Game implements MouseListener {
 
 		// 타이틀
 		g.setFont(new Font("Serif", Font.BOLD, 30));
-		g.drawString("소프트웨어학과 자료구조 스택 게임", 0, 40);
-
+		g.drawString("소프트웨어학과 자료구조 스택 게임", 5, 40);
+		g.setFont(new Font("Serif", Font.BOLD, 15));
+		g.setColor(Color.RED);
+		g.drawString("모든 노드를 가장 오른쪽 막대에 옮기시오.", 5, 80);
+		
 		g.drawImage(img_stick, btn_x + 25, btn_y - 310, 50, 300, null);
 		g.drawImage(img_stick, btn_x + btn_intervalX + 25, btn_y - 310, 50, 300, null);
 		g.drawImage(img_stick, btn_x + (btn_intervalX * 2) + 25, btn_y - 310, 50, 300, null);

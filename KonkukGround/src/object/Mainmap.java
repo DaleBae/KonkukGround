@@ -18,12 +18,16 @@ public class Mainmap extends JPanel implements KeyListener {
 	private Image[] img;
 	private Image[] Tileimg;
 	private Image[] chimg;
+	private Image[] m; //엠블럼
 	private int[][] EntireMap;
 	private int[][] PartMap;
 	private int xCount;
 	private int yCount;
 	private int result; // 옵션창의 결과 값을 받아오기
 	private boolean flag; // 물에 처음 들어온 것인지 확인하는 변수
+	private Image ending;
+	private boolean isEnding;
+	private boolean[] clear; //클리어 체크
 	Robot robot;
 	
 	private mainMapListener listener;
@@ -106,6 +110,23 @@ public class Mainmap extends JPanel implements KeyListener {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		doDrawing(g);
+		
+		for(int i=0; i<5; i++){
+			if(clear[i]){
+				g.drawImage(m[i], 450+(i*60), 0,50,50, null);
+			}
+		}
+		
+		if(isEnding){
+			g.setFont(new Font("Serif", Font.BOLD, 30));
+			g.setColor(Color.RED);
+			g.drawString("건국대학교 대학 탐방 클리어!!", 150, 80);
+			g.drawImage(ending, 200, 100, 300, 400, null);
+			
+			g.setFont(new Font("Serif", Font.BOLD, 25));
+			g.setColor(Color.BLACK);
+			g.drawString("건대에서 또 만나요!!", 220, 320);
+		}
 	}
 
 	// Map 초기화
@@ -122,9 +143,41 @@ public class Mainmap extends JPanel implements KeyListener {
 		}
 	}
 
+	public void setClear(int index){
+		if(index<5){
+			clear[index]=true;
+		}
+		
+		boolean isAll=true;
+		
+		for(int i=0; i<5; i++){
+			if(!clear[i]){
+				isAll=false;
+			}
+			
+		}
+		
+		isEnding=isAll;
+	}
+	
 	// Tile,Ch 이미지 배열 생성 및 이미지 설정
 	public void Image_init() {
 		tool = Toolkit.getDefaultToolkit();
+		
+		ending = tool.getImage("images/ending.png");
+		
+		m = new Image[5];
+		m[0] = tool.getImage("images/m1.png");
+		m[1] = tool.getImage("images/m2.png");
+		m[2] = tool.getImage("images/m3.png");
+		m[3] = tool.getImage("images/m4.png");
+		m[4] = tool.getImage("images/m5.png");
+		
+		clear = new boolean[5];
+		for(int i=0; i<5; i++){
+			clear[i]=false;
+		}
+		
 		Tileimg = new Image[51];
 		Tileimg[0] = tool.getImage("images/풀0.png");
 		Tileimg[1] = tool.getImage("images/울타리1.png");
@@ -253,7 +306,11 @@ public class Mainmap extends JPanel implements KeyListener {
 					"<html>[일감호]<br/>건국대학교의 상징물인 호수<br/>※ 연인들의 산책 코스로 적합 ※" + "<br/>들어가시겠습니까 ?</html>", null,
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		}
+		
+		
+		
 		if (result == JOptionPane.YES_OPTION) {
+			listener.startGame(99); //다시 포커스 MyFrame으로 넘기기 (키리스너 작동)
 			//예버튼
 			if (doornum > 0) {
 				listener.startGame(doornum);
