@@ -40,7 +40,7 @@ public class ArtCulture extends Game implements KeyListener {
 	ArtCulture(String subject, Character ch, gameEndListener listener) {
 		super(subject, ch, listener);
 		// TODO Auto-generated constructor stub
-		level = 1;
+		level = 2;
 		isShowClear = false;
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
@@ -113,9 +113,6 @@ public class ArtCulture extends Game implements KeyListener {
 		return a;
 	}
 
-	interface GameEndListener {
-		void GameEnd();
-	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -169,12 +166,12 @@ public class ArtCulture extends Game implements KeyListener {
 						str = "images/Art/모나리자/모나리자" + img_shuffle[i][j] + ".png";
 						Path path = Paths.get(str);
 						img = ImageIO.read(new File(path.toString()));
-						g.drawImage(img, 300 + (j * 80), 100 + (i * 80), 100, 100, this);
+						g.drawImage(img, 300 + (j * 100), 100 + (i * 100), 100, 100, this);
 					} else if (level == 2) {
 						str = "images/Art/반고흐/반고흐" + img_shuffle[i][j] + ".png";
 						Path path = Paths.get(str);
 						img = ImageIO.read(new File(path.toString()));
-						g.drawImage(img, 200 + (j * 80), 200 + (i * 80), 100, 100, this);
+						g.drawImage(img, 200 + (j * 100), 200 + (i * 100), 100, 100, this);
 					}
 				}
 			}
@@ -189,7 +186,7 @@ public class ArtCulture extends Game implements KeyListener {
 			try {
 				img = ImageIO.read(new File(path.toString()));
 //				g.drawImage(img, currentCursor.x, currentCursor.y, 100,100, this);
-				g.drawImage(img, 200, 200, 100,100, this);
+				g.drawImage(img, 300, 100, 100,100, this);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

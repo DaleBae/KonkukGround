@@ -22,7 +22,7 @@ public class MyFrame extends JFrame {
 	// 게임 객체
 	MuseumGame museum;
 	SoftGame soft;
-	
+	ArtCulture art;
 	
 
 	public MyFrame() {
@@ -79,20 +79,10 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 6:
-							panel.setVisible(false);
-							MyFrame.this.removeKeyListener(panel);
-							
-							ArtCulture art=new ArtCulture("예술문화대학",ch,new ArtCulture.gameEndListener() {
-								
-								@Override
-								public void gameEnd(boolean isClear) {
-									// TODO Auto-generated method stub
-									
-								}
-							});
-							contentpane.add(art);
-							art.setVisible(true);
-							
+
+							startArtGame();
+
+
 							break;
 
 						case 7:
@@ -116,27 +106,8 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 12:
-							panel.setVisible(false);
-							MyFrame.this.removeKeyListener(panel);
-							kul=new Kulhouse("쿨하우스",ch,new Kulhouse.gameEndListener() {
-								
-								@Override
-								public void gameEnd(boolean isClear) {
-									// TODO Auto-generated method stub
-									kul.setVisible(false);
-									MyFrame.this.removeKeyListener(kul);
-									contentpane.remove(kul);
 
-									// 다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
-									MyFrame.this.addKeyListener(panel);
-									panel.setVisible(true);
-									panel.requestFocus();
-									MyFrame.this.requestFocusInWindow(true);
-								}
-							});
-							contentpane.add(kul);
-							MyFrame.this.addKeyListener(kul);
-							kul.setVisible(true);
+							startKulHouse();
 							break;
 
 							
@@ -359,5 +330,48 @@ public class MyFrame extends JFrame {
 
 		}
 	}
+//	예문대 게임(6)
+	private void startArtGame() {
+		panel.setVisible(false);
+		MyFrame.this.removeKeyListener(panel);
+		
+		art=new ArtCulture("예술문화대학",ch,new ArtCulture.gameEndListener() {
 
+			@Override
+			public void gameEnd(boolean isClear) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		contentpane.add(art);
+		art.setVisible(true);
+		
+	}
+//	쿨하우스(12)
+	private void startKulHouse() {
+		panel.setVisible(false);
+		MyFrame.this.removeKeyListener(panel);
+		kul=new Kulhouse("쿨하우스",ch,new Kulhouse.gameEndListener() {
+			@Override
+			public void gameEnd(boolean isClear) {
+				// TODO Auto-generated method stub
+				// 게임 화면 false 주고 리스너 제거
+				kul.setVisible(false);
+				MyFrame.this.removeKeyListener(kul);
+				contentpane.remove(kul);
+
+				// 다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
+				MyFrame.this.addKeyListener(panel);
+				panel.setVisible(true);
+				panel.requestFocus();
+				MyFrame.this.requestFocusInWindow(true);
+			}
+		});
+		contentpane.add(kul);
+		kul.setVisible(true);
+		MyFrame.this.addKeyListener(kul);
+		MyFrame.this.requestFocusInWindow(true);
+		
+	}
 }
