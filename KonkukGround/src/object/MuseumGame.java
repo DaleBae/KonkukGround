@@ -24,6 +24,8 @@ import javax.swing.*;
 
 public class MuseumGame extends Game implements MouseListener {
 
+	
+
 	Image img_msg; //대화창
 	Image img_museum; //박물관 이미지
 	
@@ -50,12 +52,10 @@ public class MuseumGame extends Game implements MouseListener {
 	
 	Timer timer;
 	
-	gameEndListener listener;
-
-	MuseumGame(String subject, Character ch , gameEndListener listener) {
-		super(subject, ch);
-
-		this.listener = listener;
+	
+	MuseumGame(String subject, Character ch, object.Game.gameEndListener listener) {
+		super(subject, ch, listener);
+		// TODO Auto-generated constructor stub
 		
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
@@ -73,7 +73,6 @@ public class MuseumGame extends Game implements MouseListener {
 
 		this.add(btn_o);
 		this.add(btn_x);
-
 	}
 
 	@Override
@@ -148,10 +147,7 @@ public class MuseumGame extends Game implements MouseListener {
 		
 	}
 	
-	
-	interface gameEndListener{
-		void gameEnd(boolean isClear);
-	}
+
 	
 
 	private void init() {

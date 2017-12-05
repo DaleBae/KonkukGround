@@ -12,12 +12,17 @@ import object.Character;
 public class MyFrame extends JFrame {
 	Mainmap panel;
 	Character ch;
-
+	Container contentpane;
+	
+	
 	GameMessage message;
 	GameMessage message_ingame;
 
 	// 게임 객체
 	MuseumGame museum;
+	SoftGame soft;
+	
+	
 
 	public MyFrame() {
 
@@ -28,7 +33,11 @@ public class MyFrame extends JFrame {
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.black);
-		Container contentpane = this.getContentPane();
+		contentpane = this.getContentPane();
+		
+		ch = new Character();
+		
+	
 
 		// 인트로 부분
 		message = new GameMessage(819, 648, introMessage(), new GameMessage.GameMessageListener() {
@@ -40,8 +49,6 @@ public class MyFrame extends JFrame {
 				// 본 게임
 				MyFrame.this.removeKeyListener(message);
 				contentpane.remove(message);
-
-				ch = new Character(); // 캐릭터 생성
 
 				// 메인 맵 생성
 				panel = new Mainmap(ch, new Mainmap.mainMapListener() {
@@ -60,87 +67,12 @@ public class MyFrame extends JFrame {
 							break;
 
 						case 4:
-
+							startSoftGame();
 							break;
 
 						case 5:
 
-							if (ch.getClear(5) == 0) { //클리어 여부 확인
-
-								
-								//게임 대화 상자 생성 (1)
-								message_ingame = new GameMessage(819, 648, museumMessage(),
-										new GameMessage.GameMessageListener() {
-
-											@Override
-											public void endMessage() {
-												//게임 대화상자 끝나고 게임실행하는 부분
-												
-												
-												// 메세지 화면 false로 해주고 리스너 제거(2)
-												message_ingame.setVisible(false);
-												MyFrame.this.removeKeyListener(message_ingame);
-												contentpane.remove(message_ingame);
-												
-												
-												//게임 클래스 생성(2)
-												museum = new MuseumGame("박물관 게임", ch, new MuseumGame.gameEndListener() {
-
-													@Override
-													public void gameEnd(boolean isClear) {
-
-														//게임 끝나고 실행 이벤트(3)
-														
-													
-														if (isClear) {
-															//클리어 했을때 캐릭터에 클리어 정보 저장
-															ch.setClear(5);
-														}
-																
-														
-														
-														//게임 화면 false 주고 리스너 제거
-														museum.setVisible(false);
-														MyFrame.this.removeMouseListener(museum);
-														contentpane.remove(museum);
-														
-														//다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
-														MyFrame.this.addKeyListener(panel);
-														panel.setVisible(true);
-														panel.requestFocus();
-														MyFrame.this.requestFocusInWindow(true);
-
-													}
-												});
-
-												
-												//메인 맵 화면 false 해주고 게임화면 띄워주는 부분(대화상자에 리스너 추가) (2)
-												panel.setVisible(false);
-												contentpane.add(museum);
-												MyFrame.this.addMouseListener(museum);
-												museum.setVisible(true);
-												
-												
-											}
-										});
-									
-								
-								//메인맵 화면 false해주고 대화 상자 띄워주는 부분 (1)
-								panel.setVisible(false);
-								MyFrame.this.removeKeyListener(panel);
-								MyFrame.this.addKeyListener(message_ingame);
-								contentpane.add(message_ingame);
-								message_ingame.setVisible(true);
-								
-								
-							} else {
-										
-								//클리어 시 보여줄 화면
-								JOptionPane.showMessageDialog(null, "<html>이미 클리어한 건물입니다.</html>");
-								panel.requestFocus();
-								MyFrame.this.requestFocusInWindow(true);
-
-							}
+							startMuseumGame();
 
 							break;
 
@@ -171,6 +103,12 @@ public class MyFrame extends JFrame {
 						case 12:
 
 							break;
+							
+						case 99:
+							//키리스너가져오기
+							panel.requestFocus();
+							MyFrame.this.requestFocusInWindow(true);
+							break;
 
 						}
 
@@ -179,6 +117,7 @@ public class MyFrame extends JFrame {
 				MyFrame.this.addKeyListener(panel);
 				contentpane.add(panel);
 				MyFrame.this.setVisible(true);
+		
 
 			}
 		});
@@ -210,6 +149,177 @@ public class MyFrame extends JFrame {
 		muse.add("그럼 상허 기념 박물관 퀴즈 게임을 시작하자 ▼");
 
 		return muse;
+	}
+	
+	
+	private ArrayList<String> softMessage() {
+		ArrayList<String> msgs = new ArrayList();
+		msgs.add("어서와! 여기는 새천년관이란다. ▼");
+		msgs.add("... ▼");
+		msgs.add(" ... ▼");
+
+		msgs.add("그럼 소프트웨어 자료구조 스택게임을 시작하자 ▼");
+
+		return msgs;
+	}
+	
+	
+	
+	//새천년관 게임(4)
+	private void startSoftGame(){
+		if(ch.getClear(4)==0){ //1 이면 클리어
+			
+			//게임 대화 상자 생성 (1)
+			message_ingame = new GameMessage(819, 648, softMessage(),
+					new GameMessage.GameMessageListener() {
+
+						@Override
+						public void endMessage() {
+							//게임 대화상자 끝나고 게임실행하는 부분
+							
+							
+							// 메세지 화면 false로 해주고 리스너 제거(2)
+							message_ingame.setVisible(false);
+							MyFrame.this.removeKeyListener(message_ingame);
+							contentpane.remove(message_ingame);
+							
+							
+							//게임 클래스 생성(2)
+
+							soft= new SoftGame("소프트웨어학과 자료구조 게임",ch,new SoftGame.gameEndListener() {
+								
+								@Override
+								public void gameEnd(boolean isClear) {
+									// TODO Auto-generated method stub
+									
+									if(isClear){
+										ch.setClear(4);
+									}
+									
+									//게임 화면 false 주고 리스너 제거
+									soft.setVisible(false);
+									MyFrame.this.removeMouseListener(soft);
+									contentpane.remove(soft);
+									
+									//다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
+									MyFrame.this.addKeyListener(panel);
+									panel.setVisible(true);
+									panel.requestFocus();
+									MyFrame.this.requestFocusInWindow(true);
+								}
+							});
+
+							
+							//메인 맵 화면 false 해주고 게임화면 띄워주는 부분(대화상자에 리스너 추가) (2)
+							panel.setVisible(false);
+							contentpane.add(soft);
+							MyFrame.this.addMouseListener(soft);
+							soft.setVisible(true);
+							
+							
+						}
+					});
+				
+			
+			//메인맵 화면 false해주고 대화 상자 띄워주는 부분 (1)
+			panel.setVisible(false);
+			MyFrame.this.removeKeyListener(panel);
+			MyFrame.this.addKeyListener(message_ingame);
+			contentpane.add(message_ingame);
+			message_ingame.setVisible(true);
+			
+			
+		} else {
+					
+			//클리어 시 보여줄 화면
+			JOptionPane.showMessageDialog(null, "<html>이미 클리어한 건물입니다.</html>");
+			panel.requestFocus();
+			MyFrame.this.requestFocusInWindow(true);
+
+		
+	
+		}
+	}
+	
+	
+	//박물관 게임(5)
+	private void startMuseumGame(){
+		if (ch.getClear(5) == 0) { //클리어 여부 확인
+
+			
+			//게임 대화 상자 생성 (1)
+			message_ingame = new GameMessage(819, 648, museumMessage(),
+					new GameMessage.GameMessageListener() {
+
+						@Override
+						public void endMessage() {
+							//게임 대화상자 끝나고 게임실행하는 부분
+							
+							
+							// 메세지 화면 false로 해주고 리스너 제거(2)
+							message_ingame.setVisible(false);
+							MyFrame.this.removeKeyListener(message_ingame);
+							contentpane.remove(message_ingame);
+							
+							
+							//게임 클래스 생성(2)
+							museum = new MuseumGame("박물관 게임", ch, new MuseumGame.gameEndListener() {
+
+								@Override
+								public void gameEnd(boolean isClear) {
+
+									//게임 끝나고 실행 이벤트(3)
+									
+								
+									if (isClear) {
+										//클리어 했을때 캐릭터에 클리어 정보 저장
+										ch.setClear(5);
+									}
+											
+									
+									
+									//게임 화면 false 주고 리스너 제거
+									museum.setVisible(false);
+									MyFrame.this.removeMouseListener(museum);
+									contentpane.remove(museum);
+									
+									//다시 메인맵 화면 보여주고 리스너 새로 갱신 (3)
+									MyFrame.this.addKeyListener(panel);
+									panel.setVisible(true);
+									panel.requestFocus();
+									MyFrame.this.requestFocusInWindow(true);
+
+								}
+							});
+
+							
+							//메인 맵 화면 false 해주고 게임화면 띄워주는 부분(대화상자에 리스너 추가) (2)
+							panel.setVisible(false);
+							contentpane.add(museum);
+							MyFrame.this.addMouseListener(museum);
+							museum.setVisible(true);
+							
+							
+						}
+					});
+				
+			
+			//메인맵 화면 false해주고 대화 상자 띄워주는 부분 (1)
+			panel.setVisible(false);
+			MyFrame.this.removeKeyListener(panel);
+			MyFrame.this.addKeyListener(message_ingame);
+			contentpane.add(message_ingame);
+			message_ingame.setVisible(true);
+			
+			
+		} else {
+					
+			//클리어 시 보여줄 화면
+			JOptionPane.showMessageDialog(null, "<html>이미 클리어한 건물입니다.</html>");
+			panel.requestFocus();
+			MyFrame.this.requestFocusInWindow(true);
+
+		}
 	}
 
 }

@@ -248,13 +248,18 @@ public class Mainmap extends JPanel implements KeyListener {
 					JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 		}
 		if (result == JOptionPane.YES_OPTION) {
+			//예버튼
 			if (doornum > 0) {
 				System.out.println(doornum);
 				listener.startGame(doornum);
 			}
 		} else {
+			//아니오 버튼
+			listener.startGame(99); //다시 포커스 MyFrame으로 넘기기 (키리스너 작동)
 			key_reject(e_temp);
 		}
+		
+		
 
 	}
 
@@ -273,6 +278,7 @@ public class Mainmap extends JPanel implements KeyListener {
 			case KeyEvent.VK_UP:
 				robot.keyPress(KeyEvent.VK_DOWN);
 				robot.keyRelease(KeyEvent.VK_DOWN);
+				
 				break;
 			case KeyEvent.VK_DOWN:
 				robot.keyPress(KeyEvent.VK_UP);
@@ -287,6 +293,8 @@ public class Mainmap extends JPanel implements KeyListener {
 				robot.keyRelease(KeyEvent.VK_LEFT);
 				break;
 			}
+			
+			
 		} catch (AWTException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
