@@ -14,9 +14,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 
 public class ArtCulture extends Game implements KeyListener {
-	Character ch;
+	
 
-	GameEndListener listener;
+	Character ch;
 
 	Integer[][] img_perfect;
 	Integer[][] img_shuffle;
@@ -37,8 +37,9 @@ public class ArtCulture extends Game implements KeyListener {
 	String str;
 	JLabel label;
 
-	ArtCulture(String subject, Character ch, GameEndListener listener) {
-		super(subject, ch);
+	ArtCulture(String subject, Character ch, gameEndListener listener) {
+		super(subject, ch, listener);
+		// TODO Auto-generated constructor stub
 		level = 1;
 		isShowClear = false;
 		this.setLayout(null);
@@ -51,7 +52,7 @@ public class ArtCulture extends Game implements KeyListener {
 		label.setForeground(Color.BLACK);
 
 		this.ch = ch;
-		this.listener = listener;
+		
 		rand = new Random();
 		
 		currentCursor = new Point(0, 0);

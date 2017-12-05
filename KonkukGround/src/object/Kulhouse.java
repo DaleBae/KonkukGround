@@ -11,18 +11,20 @@ import java.util.Timer;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import object.Game.gameEndListener;
+
 public class Kulhouse extends Game implements KeyListener {
 	Character ch;
 	JButton btn_sleep, btn_exit;
 	private boolean pos;
-	ExitListener listener;
+
 	Image img;
 	Timer timer;
 	JLabel label;
 	boolean sleep_enter;
 
-	public Kulhouse(String subject, Character ch, ExitListener listener) {
-		super(subject, ch);
+	public Kulhouse(String subject, Character ch, gameEndListener listener) {
+		super(subject, ch,listener);
 		// TODO Auto-generated constructor stub
 
 		pos = true;
@@ -30,7 +32,7 @@ public class Kulhouse extends Game implements KeyListener {
 		this.setLayout(null);
 		this.setBackground(Color.WHITE);
 		init();
-		this.listener = listener;
+
 
 		label = new JLabel();
 		label.setFont(new Font("Serif", Font.BOLD, 20));
@@ -62,12 +64,13 @@ public class Kulhouse extends Game implements KeyListener {
 		// btn_x.addMouseListener(this);
 	}
 
+	
 	interface ExitListener {
 		void ExitHere();
 	}
 
 	public void exit() {
-		listener.ExitHere();
+		listener.gameEnd(false);
 	}
 
 	public void init() {

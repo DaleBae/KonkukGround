@@ -15,7 +15,6 @@ public class MyFrame extends JFrame {
 	Character ch;
 	Container contentpane;
 	
-	
 	GameMessage message;
 
 	GameMessage message_ingame;
