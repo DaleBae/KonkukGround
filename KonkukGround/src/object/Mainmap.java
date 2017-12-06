@@ -522,12 +522,15 @@ public class Mainmap extends JPanel implements KeyListener {
 		ch.setHP(temp-1);
 		if(temp/40==2&&temp%40==20) {
 			JOptionPane.showMessageDialog(null, "<html>체력이 50%입니다.<br/>학생회관에서 식사를 하거나<br/>기숙사에서 휴식을 취하세요 !</html>");
+			listener.startGame(99); //다시 포커스 MyFrame으로 넘기기 (키리스너 작동)
 		}
 		else if(temp/40==1&&temp%40==10) {
 			JOptionPane.showMessageDialog(null, "<html>체력이 25%입니다.<br/>학생회관에서 식사를 하거나<br/>기숙사에서 휴식을 취하세요 !</html>");
+			listener.startGame(99); //다시 포커스 MyFrame으로 넘기기 (키리스너 작동)
 		}
 		else if(temp/40==0&&temp%40==0) {
 			JOptionPane.showMessageDialog(null, "<html>체력이 모두 소진되었습니다.<br/>기숙사로 이동합니다.</html>");
+			listener.startGame(99); //다시 포커스 MyFrame으로 넘기기 (키리스너 작동)
 			xCount=39;
 			yCount=25;
 			ch.setPosX(320);
